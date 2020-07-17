@@ -20,6 +20,14 @@ spec:
       labels:
         run: {{ $toponame | quote }}
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: "agentpool"
+                operator: In
+                values: ["werkpool"]
       containers:
       - name: {{ $toponame | quote }}
 {{- include "hpcc.addSecurityContext" (dict "root" $ "me" .) | indent 8 }}
@@ -99,6 +107,14 @@ spec:
         run: {{ $servername | quote }}
         roxie-server: {{ $servername | quote }}
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: "agentpool"
+                operator: In
+                values: ["werkpool"]
       initContainers:
         {{- include "hpcc.checkDataMount" (dict "root" $) | indent 6 }}
       containers:
@@ -160,6 +176,14 @@ spec:
         roxie-server: {{ $servername | quote }}
 {{- end }}
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: "agentpool"
+                operator: In
+                values: ["werkpool"]
       initContainers:
         {{- include "hpcc.checkDataMount" (dict "root" $) | indent 6 }}
       containers:

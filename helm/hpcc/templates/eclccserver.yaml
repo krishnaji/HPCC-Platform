@@ -14,6 +14,14 @@ spec:
       labels:
         run: {{ .name | quote }}
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: "agentpool"
+                operator: In
+                values: ["werkpool"]
       serviceAccountName: hpcc
       terminationGracePeriodSeconds: {{ .terminationGracePeriodSeconds | default 600 }}
       initContainers:

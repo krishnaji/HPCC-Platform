@@ -1,13 +1,14 @@
 # Default values for hpcc.
 
 global:
-  # Settings in the global section apply to all HPCC components in all subcharts
 
+  # Settings in the global section apply to all HPCC components in all subcharts
   image:
     ## It is recommended to name a specific version rather than latest, for any non-trivial deployment
     #version: latest
     root: "hpccsystems"    # change this if you want to pull your images from somewhere other than DockerHub hpccsystems
     pullPolicy: IfNotPresent
+    version: latest
   
   # logging sets the default logging information for all components. Can be overridden locally
   logging:
@@ -17,6 +18,7 @@ global:
   # If not specified, the first esp component that exposes eclservices application is assumed.
   # Can also be overridden locally in individual components
   ## defaultEsp: eclservices
+
 
 ## storage:
 ##

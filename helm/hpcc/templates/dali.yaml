@@ -14,6 +14,14 @@ spec:
       labels:
         run: {{ .name | quote }}
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: "agentpool"
+                operator: In
+                values: ["werkpool"]
       initContainers: 
         {{- include "hpcc.checkDaliMount" (dict "root" $) | indent 6 }}
       containers:

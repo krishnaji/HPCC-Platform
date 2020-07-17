@@ -19,6 +19,14 @@ spec:
         run: {{ $roxie.name | quote }}
         roxie-server: {{ $servername | quote }}
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: "agentpool"
+                operator: In
+                values: ["werkpool"]
       initContainers:
         {{- include "hpcc.checkDataMount" (dict "root" $) | indent 6 }}
       containers:
